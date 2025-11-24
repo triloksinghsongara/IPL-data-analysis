@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IPL Data Analysis Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <div class="container my-4">
+
+    <h1 class="dashboard-title mb-4">IPL Data Analysis Dashboard</h1>
+
+    <!-- STATS CARDS -->
+    <div class="row mb-4">
+      
+      <div class="col-md-3">
+        <div class="card stat-card">
+          <div class="card-body text-center">
+            <h5>Total Matches</h5>
+            <h2>{{ stats.total_matches }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card stat-card">
+          <div class="card-body text-center">
+            <h5>Seasons</h5>
+            <h2>{{ stats.total_seasons }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card stat-card">
+          <div class="card-body text-center">
+            <h5>Teams</h5>
+            <h2>{{ stats.total_teams }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card stat-card">
+          <div class="card-body text-center">
+            <h5>Players (est.)</h5>
+            <h2>{{ stats.total_players_estimated }}</h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHARTS + TABLES -->
+    <div class="row">
+
+      <!-- Top Run Scorers -->
+      <div class="col-lg-6 mb-4">
+        <div class="card graph-card">
+          <div class="card-body">
+            <h4 class="section-title">Top Run Scorers</h4>
+            {{ runs_graph | safe }}
+
+            <div class="table-container mt-4">
+              <h5 class="table-heading">Top 10 Run Scorers</h5>
+              <div class="table-wrapper">
+                {{ top_runs_table | safe }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Wicket Takers -->
+      <div class="col-lg-6 mb-4">
+        <div class="card graph-card">
+          <div class="card-body">
+            <h4 class="section-title">Top Wicket Takers</h4>
+            {{ wk_graph | safe }}
+
+            <div class="table-container mt-4">
+              <h5 class="table-heading">Top 10 Wicket Takers</h5>
+              <div class="table-wrapper">
+                {{ top_wk_table | safe }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Wins Over Season -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card graph-card">
+          <div class="card-body">
+            <h4 class="section-title">Wins by Season (Top Teams)</h4>
+
+            {{ wins_season_graph | safe }}
+
+            <div class="table-container mt-4">
+              <h5 class="table-heading">Team Wins Table</h5>
+              <div class="table-wrapper">
+                {{ team_wins_table | safe }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-muted mt-3 mb-2">
+      <small>Made with Flask • Pandas • NumPy • Plotly</small>
+    </footer>
+
+  </div>
+
+</body>
+</html>
